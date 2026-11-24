@@ -1,2 +1,36 @@
-#coding:l1
-import lzma;exec(lzma.decompress('\0\0\0Á\0\0\0\0\0\0\0hÏ/Xy5µKºr‘‰=¥²\\Ôù¢˜ò\nD3m™\nËÆÚ?ÙK›ÙÎûZğœ¯Ğˆ,’”F/{œ\'Ñ•åêı\\À‰Ãb5²}-)€l—‡J2D…À)/×j~²ZfzÔ_å–Ÿ·j³ <‘òXX!Y™®¥“ÀQIMwİ|”[$NIé]„]uÊsùø°Œ¸æ¼"²\rBì{¿2¼İ„¾Nq¸¼,*[L K7½÷±î¥ïcD¨\n¦ÍôvòÚe¸¢C\0¥uÿ¨–Fş¾ìÙ·_Eğ°‰JØõf8ò0ëtÅœ¹ìÉõsX1¥á›öH)D9`ÂÆ¨õ é@/ñ\'yxIİgÍÌi¤òÍ‘ÉÉ¡R¯Lk`’	™Ïs¯ \\¾:ÏO8WÆ·™fFo—4‹¤HgîüglW]ÊŸĞÇ²ˆwªm¶¦Åe3¡CÅPJ6èrş‹ryĞŸqá5£»´\rÜÃÉ ©Şo>õ%·„»«P‡„úÎ´bG4õ–Jµ·_5ÇE¾é_hâˆ%»µ	”€”[‰ºuê½ì‹XóP•X~îìgcÄÏşÙ\\¦¿\n5FĞÿ€¶H`”îÏ ø¨ŞˆÄÆõ|™/º"òH$“hS^dÕRC?ÇG\x009B:fX¬ôå\0'.encode('l1')))
+#!/usr/bin/env python3
+"""One Line of Earned Pride â€” make.fun entry.
+
+Writes a single line of text, 1 to 240 characters, to
+$MAKEFUN_OUTPUT_DIR/entry.txt (default /output/entry.txt):
+The line itself: a net-mender of forty years finishes his last knot
+and sees the light come through the holes his own hands closed.
+The pride is earned inside the scene â€” four decades of work, one
+knot, one look â€” and it lands on the final image, with no trophy,
+no podium, no congratulation. Pure standard library, deterministic.
+"""
+
+import os
+
+ENTRY = (
+    "After forty years of mending nets, old Tomas tied the last knot, "
+    "lifted the net to the sun, and watched light pour through every "
+    "hole his hands had closed."
+)
+
+
+def main() -> int:
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+    os.makedirs(out_dir, exist_ok=True)
+    text = ENTRY.strip()
+    if "\n" in text or "\r" in text:
+        raise SystemExit("entry must be a single line")
+    if not 1 <= len(text) <= 240:
+        raise SystemExit("entry must be 1 to 240 characters")
+    with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as f:
+        f.write(text + "\n")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
